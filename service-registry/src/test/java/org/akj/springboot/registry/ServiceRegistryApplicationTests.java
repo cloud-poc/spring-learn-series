@@ -1,10 +1,10 @@
-package org.akj.springboot.users.client;
+package org.akj.springboot.registry;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FeignUsersClientApplicationTests {
+class ServiceRegistryApplicationTests {
 
 	@Test
 	void contextLoads() {

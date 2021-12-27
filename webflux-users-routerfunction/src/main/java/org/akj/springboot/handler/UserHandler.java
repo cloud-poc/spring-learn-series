@@ -13,10 +13,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 @Component
 public class UserHandler {
@@ -31,14 +34,25 @@ public class UserHandler {
         this.mapperFacade = mapperFacade;
     }
 
-    @Operation(summary = "retrieve all users", parameters = {@Parameter(name = "pageNo", example = "0", required = true, style = ParameterStyle.SIMPLE),
-            @Parameter(name = "pageSize", example = "5", required = true)})
+    @Operation(summary = "retrieve all users")
     public Mono<ServerResponse> getAllUsers(ServerRequest request) {
-        Pageable pageRequest = PageRequest.of(Integer.valueOf(request.queryParam("pageNo").orElse("0")).intValue(),
-                        Integer.valueOf(request.queryParam("pageSize").orElse("200")).intValue())
-                .withSort(Sort.Direction.ASC, "userName");
+        Flux<User> users = null;
 
-        Flux<User> users = this.userRepository.findAllUserWithPagination(pageRequest);
+        Optional<String> userName = request.queryParam("userName");
+        if (userName.isPresent()) {
+            users = this.userRepository.findByUserName(userName.get());
+        } else {
+            Integer pageNo = null;
+            Integer pageSize = null;
+            Optional<String> pageNoOptional = request.queryParam("pageNo");
+            Optional<String> pageSizeOptional = request.queryParam("pageSize");
+            pageNo = pageNoOptional.isPresent() ? Integer.valueOf(pageNoOptional.get()) : null;
+            pageSize = pageSizeOptional.isPresent() ? Integer.valueOf(pageSizeOptional.get()) : null;
+            this.validate(pageNo, pageSize);
+
+            Pageable pageRequest = PageRequest.of(pageNo, pageSize).withSort(Sort.Direction.ASC, "userName");
+            users = this.userRepository.findAllUserWithPagination(pageRequest);
+        }
 
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(users, User.class);
@@ -90,4 +104,11 @@ public class UserHandler {
         }).switchIfEmpty(ServerResponse.notFound().build());
     }
 
+    private void validate(Integer pageNo, Integer pageSize) {
+        Assert.notNull(pageNo, "pageNo must not be empty.");
+        Assert.notNull(pageSize, "pageSize must not be empty.");
+
+        Assert.isTrue(pageNo >= 0, "the range of pageNo is [0,]");
+        Assert.isTrue(pageSize >= 0 && pageSize <= 1000, "the range of pageNo is [0, 1000]");
+    }
 }

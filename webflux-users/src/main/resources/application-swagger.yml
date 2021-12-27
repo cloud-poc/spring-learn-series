@@ -9,7 +9,7 @@ spring:
     contact-name: Jamie Zhang
     contact-email: akjamie.zhang@pm.me
     contact-url: akjamie.zhang@pm.me
-  application:
+  app:
     name: @project.artifactId@
     version: @project.version@
 

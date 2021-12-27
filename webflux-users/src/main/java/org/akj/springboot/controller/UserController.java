@@ -4,12 +4,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.akj.springboot.domain.User;
 import org.akj.springboot.domain.UserStatus;
 import org.akj.springboot.repository.UserRepository;
+import org.apache.logging.log4j.util.Strings;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -28,20 +31,26 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    @Operation(deprecated = true, summary = "retrieve all users")
-    public Flux<User> getAll(@Valid @Range(min = 0) @RequestParam("pageNo") int pageNo,
-                             @Valid @Range(min = 1, max = 1000) @RequestParam("pageSize") int pageSize) {
-        Pageable page = PageRequest.of(pageNo, pageSize).withSort(Sort.Direction.ASC, "userName");
-        return this.userRepository.findAllUserWithPagination(page);
+    @Operation(summary = "retrieve all users")
+    public Flux<User> getAll(@RequestParam(value = "pageNo", required = false) Integer pageNo,
+                             @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                             @RequestParam(value = "userName", required = false) String userName) {
+        if (Strings.isEmpty(userName)) {
+            validate(pageNo, pageSize);
+            Pageable page = PageRequest.of(pageNo, pageSize).withSort(Sort.Direction.ASC, "userName");
+            return this.userRepository.findAllUserWithPagination(page);
+        } else {
+            return this.userRepository.findByUserName(userName);
+        }
     }
 
-//    @Operation(summary = "retrieve user by userName")
-//    @GetMapping("/users?userName={userName}")
-//    public Mono<User> findUserByUserName(@Valid @NotNull @RequestParam("userName") String userName) {
-//
-//
-//        return this.userRepository.findByUserName(userName);
-//    }
+    private void validate(Integer pageNo, Integer pageSize) {
+        Assert.notNull(pageNo, "pageNo must not be empty.");
+        Assert.notNull(pageSize, "pageSize must not be empty.");
+
+        Assert.isTrue(pageNo >= 0, "the range of pageNo is [0,]");
+        Assert.isTrue(pageSize >= 0 && pageSize <= 1000, "the range of pageNo is [0, 1000]");
+    }
 
     @Operation(summary = "get user details")
     @GetMapping("/users/{uid}")

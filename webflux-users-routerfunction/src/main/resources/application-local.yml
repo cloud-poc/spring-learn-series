@@ -1,0 +1,15 @@
+server.port: 8081
+spring:
+  data:
+    mongodb:
+      host: localhost
+      auto-index-creation: true
+      username: 'dev'
+      password: '123456'
+      port: 27017
+      database: test
+      authentication-database: admin
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+

@@ -16,6 +16,7 @@
         <module>spring-application</module>
         <module>springmvc-overview</module>
         <module>webflux-helloworld</module>
+        <module>service-registry</module>
         <module>webflux-users</module>
         <module>webflux-users-routerfunction</module>
         <module>webflux-users-client</module>

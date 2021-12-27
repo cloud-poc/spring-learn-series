@@ -17,15 +17,19 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 public class Routers {
 
     @Bean
-    @RouterOperations({@RouterOperation(path = "/v1/users", method = RequestMethod.GET, beanClass = UserHandler.class, beanMethod = "getAllUsers"),
-            @RouterOperation(path = "/v1/users", method = RequestMethod.POST, beanClass = UserHandler.class, beanMethod = "addUser"),
-            @RouterOperation(path = "/v1/users/{uid}", method = RequestMethod.GET, beanClass = UserHandler.class, beanMethod = "getUser"),
-            @RouterOperation(path = "/v1/users/{uid}", method = RequestMethod.DELETE, beanClass = UserHandler.class, beanMethod = "deleteUser"),
-            @RouterOperation(path = "/v1/users/{uid}", method = RequestMethod.PUT, beanClass = UserHandler.class, beanMethod = "updateUser",produces = "application/json")})
+    @RouterOperations({@RouterOperation(path = "/v2/users", method = RequestMethod.GET, beanClass = UserHandler.class,
+            beanMethod = "getAllUsers"),
+            @RouterOperation(path = "/v2/users", method = RequestMethod.POST, beanClass = UserHandler.class,
+                    beanMethod = "addUser"),
+            @RouterOperation(path = "/v2/users/{uid}", method = RequestMethod.GET, beanClass = UserHandler.class,
+                    beanMethod = "getUser"),
+            @RouterOperation(path = "/v2/users/{uid}", method = RequestMethod.DELETE, beanClass = UserHandler.class,
+                    beanMethod = "deleteUser"),
+            @RouterOperation(path = "/v2/users/{uid}", method = RequestMethod.PUT, beanClass = UserHandler.class,
+                    beanMethod = "updateUser", produces = "application/json")})
     RouterFunction<ServerResponse> userRouter(UserHandler handler) {
-        return RouterFunctions.nest(path("/v1/users"),
-                RouterFunctions.route(GET("").and(queryParam("pageNo", t -> Integer.valueOf(t) >= 0)
-                                .and(queryParam("pageSize", t -> Integer.valueOf(t) >= 0))), handler::getAllUsers)
+        return RouterFunctions.nest(path("/v2/users"),
+                RouterFunctions.route(GET(""), handler::getAllUsers)
                         .andRoute(POST("").and(accept(MediaType.APPLICATION_JSON)), handler::addUser)
                         .andRoute(GET("/{uid}"), handler::getUser)
                         .andRoute(DELETE("/{uid}"), handler::deleteUser)

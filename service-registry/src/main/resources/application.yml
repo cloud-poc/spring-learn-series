@@ -1,0 +1,32 @@
+spring.application.name: service-registry
+server.port: 8761
+eureka:
+  instance:
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
+#    data-center-info: ${EUREKA_INSTANCE_DATA_CENTER:AMAZON}
+    non-secure-port-enabled: true
+    prefer-ip-address: true
+    health-check-url: /actuator/health
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    service-url:
+      defaultZone: ${EURAKE_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:false}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA:false}
+    should-unregister-on-shutdown: true
+    heartbeat-executor-thread-pool-size: ${EUREKA_CLIENT_HEARTBEAT_THREAD_POOL_SIZE:4}
+    healthcheck.enabled: true
+    prefer-same-zone-eureka: true
+    initial-instance-info-replication-interval-seconds: 30
+  server:
+    enable-self-preservation: ${EUREKA_SERVER_ENABLE_SELF_PRESERVATION:false}
+    eviction-interval-timer-in-ms: 60000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  metrics:
+    export.prometheus.enabled: true
+    tags.application: ${spring.application.name}

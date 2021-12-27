@@ -11,4 +11,6 @@ import reactor.core.publisher.Flux;
 public interface UserRepository extends ReactiveMongoRepository<User, String> {
     @Query(value = "{}")
     Flux<User> findAllUserWithPagination(Pageable page);
+
+    Flux<User> findByUserName(String userName);
 }

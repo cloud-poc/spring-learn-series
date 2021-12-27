@@ -16,10 +16,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 @EnableOpenApi
 public class SwaggerConfiguration {
-    @Value("${spring.application.name:}")
+    @Value("${spring.app.name:}")
     private String appName;
 
-    @Value("${spring.application.version:}")
+    @Value("${spring.app.version:}")
     private String appVersion;
 
     private SwaggerProperties swaggerProperties;
