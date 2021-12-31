@@ -35,7 +35,7 @@ public class UserController {
     public Flux<User> getAll(@RequestParam(value = "pageNo", required = false) Integer pageNo,
                              @RequestParam(value = "pageSize", required = false) Integer pageSize,
                              @RequestParam(value = "userName", required = false) String userName) {
-        if (Strings.isEmpty(userName)) {
+        if (Strings.isBlank(userName)) {
             validate(pageNo, pageSize);
             Pageable page = PageRequest.of(pageNo, pageSize).withSort(Sort.Direction.ASC, "userName");
             return this.userRepository.findAllUserWithPagination(page);

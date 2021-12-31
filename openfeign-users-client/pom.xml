@@ -18,6 +18,7 @@
         <spring-cloud.version>2021.0.0</spring-cloud.version>
         <mockito-junit-jupiter.version>4.2.0</mockito-junit-jupiter.version>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
+        <feign-httpclient.version>11.8</feign-httpclient.version>
     </properties>
     <dependencies>
         <dependency>
@@ -28,6 +29,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+            <version>${feign-httpclient.version}</version>
         </dependency>
 
         <dependency>

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-service
+  labels:
+    service: registry-service
+spec:
+  clusterIP: None
+  type: ClusterIP
+  ports:
+    - port: 8761
+      nodePort: 8761
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    service: registry-service

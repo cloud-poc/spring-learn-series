@@ -2,10 +2,10 @@ spring.application.name: service-registry
 server.port: 8761
 eureka:
   instance:
-    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
-#    data-center-info: ${EUREKA_INSTANCE_DATA_CENTER:AMAZON}
+    hostname: ${POD_NAME:localhost}
+    #    data-center-info: ${EUREKA_INSTANCE_DATA_CENTER:AMAZON}
     non-secure-port-enabled: true
-    prefer-ip-address: true
+    prefer-ip-address: false
     health-check-url: /actuator/health
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}
   client:

@@ -1,4 +1,4 @@
-package org.akj.springboot.users.client;
+package org.akj.springboot.users;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

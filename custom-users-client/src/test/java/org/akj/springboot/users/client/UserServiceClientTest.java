@@ -9,8 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class UserServiceClientTest {
+
     @Autowired
     private UserServiceClient userServiceClient;
 
@@ -23,8 +26,8 @@ class UserServiceClientTest {
         List<User> allUsers = userServiceClient.getAllUsers(0, 10, null);
         Assertions.assertTrue(allUsers.size() >= 0);
 
-//        allUsers = userServiceClient.getAllUsers(null, null, "gary");
-//        Assertions.assertTrue(allUsers.size() >= 1);
+        allUsers = userServiceClient.getAllUsers(null, null, "gary");
+        Assertions.assertTrue(allUsers.size() >= 1);
     }
 
     @Test
@@ -68,5 +71,4 @@ class UserServiceClientTest {
         String uid = "61c99264aaa4496c51c5d19a";
         this.userServiceClient.deleteUser(uid);
     }
-
 }

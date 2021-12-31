@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.akj.springboot</groupId>
-    <artifactId>webflux-users-client</artifactId>
+    <artifactId>custom-users-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>webflux-users-client</name>
-    <description>webflux-users-client</description>
+    <name>custom-users-client</name>
+    <description>custom-users-client</description>
     <properties>
         <java.version>11</java.version>
     </properties>
