@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: registry-service
+  labels:
+    service: registry-service
+spec:
+  replicas: 2
+  serviceName: registry-service
+  selector:
+    matchLabels:
+      service: registry-service
+  template:
+    metadata:
+      labels:
+        service: registry-service
+      annotations:
+        service: registry-service
+    spec:
+      containers:
+        - name: registry-service
+          image: akjamie/service-registry:2.0.1
+          imagePullPolicy: Always
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: EUREKA_CLIENT_FETCH_REGISTRY
+              value: "true"
+            - name: EUREKA_CLIENT_REGISTER_WITH_EUREKA
+              value: "true"
+            - name: EURAKE_CLIENT_SERVICE_URL
+              value: http://registry-service-0:8761/eureka/,http://registry-service-1:8761/eureka/
+
+          ports:
+            - name: http
+              containerPort: 8761
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8761
+              scheme: HTTP
+            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources:
+            limits:
+              cpu: 100m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+  podManagementPolicy: "Parallel"

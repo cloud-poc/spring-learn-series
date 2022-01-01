@@ -7,7 +7,8 @@ eureka:
     non-secure-port-enabled: true
     prefer-ip-address: false
     health-check-url: /actuator/health
-    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    metadata-map:
+      VERSION: 2.0.3
   client:
     service-url:
       defaultZone: ${EURAKE_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
