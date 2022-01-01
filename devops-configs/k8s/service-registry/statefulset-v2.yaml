@@ -19,8 +19,8 @@ spec:
     spec:
       containers:
         - name: registry-service
-          image: akjamie/service-registry:2.0.1
-          imagePullPolicy: Always
+          image: akjamie/service-registry:2.0.3
+          imagePullPolicy: IfNotPresent
           env:
             - name: POD_NAME
               valueFrom:

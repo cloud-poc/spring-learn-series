@@ -5,12 +5,11 @@ metadata:
   labels:
     service: registry-service
 spec:
-  clusterIP: None
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8761
-      nodePort: 8761
-      targetPort: http
+      targetPort: 8761
+      nodePort: 30000
       protocol: TCP
       name: http
   selector:
