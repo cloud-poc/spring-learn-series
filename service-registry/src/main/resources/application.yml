@@ -11,7 +11,7 @@ eureka:
       VERSION: 2.0.3
   client:
     service-url:
-      defaultZone: ${EURAKE_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EURAKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
     fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:false}
     register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA:false}
     should-unregister-on-shutdown: true

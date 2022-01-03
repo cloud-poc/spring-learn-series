@@ -1,6 +1,6 @@
 package org.akj.springboot.users.client;
 
-import org.akj.springboot.users.delegate.annotation.WebClient;
+import org.akj.springboot.rest.delegate.annotation.WebClient;
 import org.akj.springboot.users.domain.User;
 import org.springframework.web.bind.annotation.*;
 

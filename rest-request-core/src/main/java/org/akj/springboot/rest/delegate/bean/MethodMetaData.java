@@ -1,16 +1,16 @@
-package org.akj.springboot.users.delegate.bean;
+package org.akj.springboot.rest.delegate.bean;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MethodMetaData {
@@ -20,7 +20,9 @@ public class MethodMetaData {
 
     private Map<String, String> headers;
 
-    private Map<String, Object> params;
+    private Map<String, String> params;
+
+    private Map<String, String> pathVariables;
 
     protected Object body;
 
@@ -29,4 +31,6 @@ public class MethodMetaData {
     private Class<?> returnType;
 
     private Class<?> actualReturnType;
+
+    private boolean isReactive;
 }

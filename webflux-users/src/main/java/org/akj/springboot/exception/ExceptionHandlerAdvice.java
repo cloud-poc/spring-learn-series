@@ -1,5 +1,6 @@
 package org.akj.springboot.exception;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,6 +25,22 @@ public class ExceptionHandlerAdvice {
                 .message(ex.getMessage())
                 .build();
         return new ResponseEntity<BaseResponse>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<BaseResponse> handleDataAccessException(DataAccessException ex) {
+        BaseResponse response = BaseResponse.builder().status(HttpStatus.CONFLICT.value())
+                .message(ex.getMessage())
+                .build();
+        return new ResponseEntity<BaseResponse>(response, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<BaseResponse> handleGeneralException(Exception ex) {
+        BaseResponse response = BaseResponse.builder().status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message(ex.getMessage())
+                .build();
+        return new ResponseEntity<BaseResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private String getExceptionString(WebExchangeBindException ex) {

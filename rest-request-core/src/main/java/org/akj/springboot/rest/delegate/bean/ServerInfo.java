@@ -1,4 +1,4 @@
-package org.akj.springboot.users.delegate.bean;
+package org.akj.springboot.rest.delegate.bean;
 
 import lombok.Builder;
 import lombok.Data;

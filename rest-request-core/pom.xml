@@ -8,15 +8,14 @@
         <version>2.6.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.akj.springboot</groupId>
-    <artifactId>custom-users-client</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>custom-users-client</name>
-    <description>custom-users-client</description>
+    <groupId>org.akj</groupId>
+    <artifactId>rest-request-core</artifactId>
+    <version>1.0.0</version>
+    <name>rest-request-core</name>
+    <description>rest-request-core</description>
     <properties>
         <java.version>11</java.version>
         <jackson-datatype-jsr310.version>2.13.1</jackson-datatype-jsr310.version>
-        <rest-request-core.version>1.0.0</rest-request-core.version>
     </properties>
     <dependencies>
         <dependency>
@@ -27,11 +26,6 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson-datatype-jsr310.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.akj</groupId>
-            <artifactId>rest-request-core</artifactId>
-            <version>${rest-request-core.version}</version>
         </dependency>
 
         <dependency>
@@ -44,28 +38,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-test</artifactId>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

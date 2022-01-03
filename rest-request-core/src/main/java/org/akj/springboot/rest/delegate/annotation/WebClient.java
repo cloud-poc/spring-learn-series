@@ -1,4 +1,4 @@
-package org.akj.springboot.users.delegate.annotation;
+package org.akj.springboot.rest.delegate.annotation;
 
 import java.lang.annotation.*;
 

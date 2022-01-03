@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
@@ -13,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceClientTest {
-
     @Autowired
     private UserServiceClient userServiceClient;
 
@@ -32,7 +32,7 @@ class UserServiceClientTest {
 
     @Test
     void addUser() {
-        String userName = "gary";
+        String userName = "gary-5";
         List<User> users = this.userServiceClient.getAllUsers(null, null, userName);
         if (users.size() > 0) return;
 
@@ -46,9 +46,9 @@ class UserServiceClientTest {
 
     @Test
     void updateUser() {
-        String userName = "gary";
-        List<User> users = this.userServiceClient.getAllUsers(null, null, userName);
+        String userName = "gary-5";
         User user = null;
+        List<User> users = this.userServiceClient.getAllUsers(null, null, userName);
         if (users.size() > 0) user = users.get(0);
 
         String uid = user.getId();
