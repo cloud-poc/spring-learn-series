@@ -79,15 +79,19 @@ public class UserController {
     @Operation(summary = "update user")
     @PutMapping("/users/{uid}")
     public Mono<ResponseEntity<User>> updateUser(@PathVariable("uid") String userId,
-                                                 @Valid @RequestBody User user) {
+                                                 @Valid @RequestBody Mono<User> user) {
         return this.userRepository.findById(userId)
                 .flatMap(u -> {
-                    user.setId(userId);
-                    user.setLastModifiedDate(u.getLastModifiedDate());
-                    user.setCreateDate(u.getCreateDate());
-                    user.setCreateBy(u.getCreateBy());
-                    user.setLastModifiedBy(u.getLastModifiedBy());
-                    return this.userRepository.save(user);
+                    return user.map(uo -> {
+                        uo.setId(u.getId());
+                        uo.setCreateBy(u.getCreateBy());
+                        uo.setCreateDate(u.getCreateDate());
+                        uo.setLastModifiedBy(u.getLastModifiedBy());
+                        uo.setLastModifiedDate(u.getLastModifiedDate());
+                        return uo;
+                    });
+                }).flatMap(u -> {
+                    return this.userRepository.save(u);
                 })
                 .map(u -> new ResponseEntity<User>(u, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
