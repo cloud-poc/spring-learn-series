@@ -23,6 +23,7 @@ eureka:
     enable-self-preservation: ${EUREKA_SERVER_ENABLE_SELF_PRESERVATION:false}
     eviction-interval-timer-in-ms: 60000
 
+
 management:
   endpoints:
     web:

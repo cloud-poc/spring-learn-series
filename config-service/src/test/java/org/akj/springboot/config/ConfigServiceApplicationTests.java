@@ -1,13 +1,13 @@
-package org.akj.springboot;
+package org.akj.springboot.config;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebfluxUsersRoutefunctionApplicationTests {
+class ConfigServiceApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }

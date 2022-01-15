@@ -6,8 +6,9 @@ spring:
     name: user-service-v1
 
 eureka.client.service-url:
-  defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://ec2-35-76-118-244.ap-northeast-1.compute.amazonaws.com:8761/eureka/}
-#  defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
+#  defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://ec2-35-76-118-244.ap-northeast-1.compute.amazonaws.com:8761/eureka/}
+  defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
+
 
 management:
   endpoints:

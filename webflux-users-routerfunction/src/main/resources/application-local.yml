@@ -1,4 +1,3 @@
-server.port: 9001
 spring:
   data:
     mongodb:
@@ -12,4 +11,15 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui
+
+eureka:
+  client:
+    enabled: false
+
+
 

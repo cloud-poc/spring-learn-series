@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class AppConfigTest {
 
     @Autowired
-    @Qualifier("testBean")
     private TestBean bean;
 
     @Test

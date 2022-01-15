@@ -1,0 +1,8 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  metrics:
+    export.prometheus.enabled: true
+    tags.application: ${spring.application.name}

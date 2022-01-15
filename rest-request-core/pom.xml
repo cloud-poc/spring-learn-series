@@ -3,14 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.2</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>org.akj.springboot</groupId>
+        <artifactId>spring-learn-series</artifactId>
+        <version>2.0.0</version>
     </parent>
-    <groupId>org.akj</groupId>
+    <groupId>org.akj.springboot</groupId>
     <artifactId>rest-request-core</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <name>rest-request-core</name>
     <description>rest-request-core</description>
     <properties>

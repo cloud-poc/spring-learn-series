@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.config.EnableReactiveMongoAuditing;
 
 @SpringBootApplication
 @EnableReactiveMongoAuditing(auditorAwareRef = "mongoDBAuditorAware")
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 public class WebfluxUsersApplication {
 
     public static void main(String[] args) {

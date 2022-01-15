@@ -9,3 +9,10 @@ feign:
         connectTimeout: 5000
         readTimeout: 5000
         loggerLevel: full
+  compression:
+    request:
+      enabled: true
+      mime-types: applcation/json
+      min-request-size: 2048
+  metrics:
+    enabled: true

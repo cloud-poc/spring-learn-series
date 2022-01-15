@@ -14,7 +14,7 @@ import reactor.test.StepVerifier;
 import java.util.List;
 
 @SpringBootTest
-class UserServiceReactiveClientTest {
+public class UserServiceReactiveClientConnectivityTest {
     @Autowired
     private UserServiceReactiveClient userServiceClient;
 

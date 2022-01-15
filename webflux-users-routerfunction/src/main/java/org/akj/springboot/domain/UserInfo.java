@@ -1,6 +1,9 @@
 package org.akj.springboot.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotEmpty;
@@ -8,6 +11,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserInfo implements Serializable {
     @NotEmpty
     private String firstName;

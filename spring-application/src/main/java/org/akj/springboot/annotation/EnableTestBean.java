@@ -13,8 +13,8 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(TestBeanImportSelector.class)
+//@Import(TestBeanImportSelector.class)
 //@Import(AppConfig.class)
-//@Import(TestBeanImportBeanDefinitionRegistrar.class)
+@Import(TestBeanImportBeanDefinitionRegistrar.class)
 public @interface EnableTestBean {
 }
