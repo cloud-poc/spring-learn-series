@@ -22,7 +22,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("${spring.application.name:''}/v1")
+//@CrossOrigin
+//@CrossOrigin(origins = "http://localhost:10000", maxAge = 3600)
 public class UserController {
     private UserRepository userRepository;
 
