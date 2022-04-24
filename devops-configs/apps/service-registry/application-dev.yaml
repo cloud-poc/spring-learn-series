@@ -1,0 +1,5 @@
+spring:
+  swagger:
+    enabled: true
+    service-name: user-service
+    description: Sample user service

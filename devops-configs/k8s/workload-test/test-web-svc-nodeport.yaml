@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: test-web
+  name: test-web-svc-nodeport
+  namespace: test
+spec:
+  ports:
+  - name: http 
+    port: 80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 30080
+  - name: https
+    port: 443
+    targetPort: 80
+    nodePort: 30443
+  selector:
+    app: test-web
+  type: NodePort

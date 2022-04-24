@@ -1,34 +1,19 @@
 spring:
-  profiles:
-    active: local
-    include: swagger,native
   application:
     name: config-service
     cloud:
       config:
         server:
           native:
-            search-locations: ${CONFIG_ROOT_PATH:${config.root-path}}/config/{application}
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-
-
-config.root-path: /Users/jamie/IdeaProjects/spring-learn-series/devops/configs/apps
+            search-locations: file:${CONFIG_REPO_PATH:${config.local.root-path}}/apps/{application}
+          bootstrap: true
+  profiles:
+    active: native
 
 eureka.client.service-url:
-  #  defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://ec2-35-76-118-244.ap-northeast-1.compute.amazonaws.com:8761/eureka/}
-  defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
+  defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka/}
 
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,prometheus,metrics
-  metrics:
-    export.prometheus.enabled: true
-    tags.application: ${spring.application.name}
+config.local.root-path: /Users/jamie/IdeaProjects/spring-learn-series/devops-configs
 
 server:
   port: 8888

@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: local
+    include: swagger
+  data:
+    mongodb:
+      host: localhost
+      auto-index-creation: true
+      username: 'dev'
+      password: '123456'
+      port: 27017
+      database: test
+      authentication-database: admin
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export.prometheus.enabled: true

@@ -1,0 +1,12 @@
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: false
+eureka:
+  client:
+    enabled: false

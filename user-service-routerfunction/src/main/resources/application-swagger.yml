@@ -1,0 +1,7 @@
+spring:
+  doc:
+    enabled: true
+    service-name: user-services-routerfunction
+    description: sample user service backed by webflux(routerfunction) + reactive mongo stream
+    version: @project.version@
+
