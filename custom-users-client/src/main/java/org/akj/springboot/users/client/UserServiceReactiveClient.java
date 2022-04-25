@@ -1,13 +1,10 @@
 package org.akj.springboot.users.client;
 
 import org.akj.springboot.rest.delegate.annotation.ReactiveWebClient;
-import org.akj.springboot.rest.delegate.annotation.WebClient;
 import org.akj.springboot.users.domain.User;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 @ReactiveWebClient(url = "http://localhost:9001")
 public interface UserServiceReactiveClient {

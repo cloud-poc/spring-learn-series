@@ -1,4 +1,4 @@
-package org.akj.springboot.config;
+package org.akj.springboot.user.config;
 
 import org.springframework.data.domain.ReactiveAuditorAware;
 import org.springframework.stereotype.Component;

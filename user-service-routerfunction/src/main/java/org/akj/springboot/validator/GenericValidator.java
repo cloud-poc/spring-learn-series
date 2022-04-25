@@ -2,7 +2,6 @@ package org.akj.springboot.validator;
 
 import lombok.extern.slf4j.Slf4j;
 import org.akj.springboot.domain.BaseEntity;
-import org.akj.springboot.domain.User;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;

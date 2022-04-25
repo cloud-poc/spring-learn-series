@@ -1,4 +1,4 @@
-package org.akj.springboot;
+package org.akj.springboot.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

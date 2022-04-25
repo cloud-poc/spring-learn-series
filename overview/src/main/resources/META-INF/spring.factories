@@ -1,7 +1,7 @@
 # Run Listeners
 org.springframework.boot.SpringApplicationRunListener=\
-org.akj.springboot.listener.HelloWorldApplicationRunListener
+HelloWorldApplicationRunListener
 
   # Application Listeners
 org.springframework.context.ApplicationListener=\
-org.akj.springboot.listener.HelloWorldApplicationListener
+HelloWorldApplicationListener

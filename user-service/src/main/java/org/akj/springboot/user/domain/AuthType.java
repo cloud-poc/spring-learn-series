@@ -1,4 +1,4 @@
-package org.akj.springboot.domain;
+package org.akj.springboot.user.domain;
 
 public enum AuthType {
     PASSWORD("PASSWORD"), OTP("OTP"), GITHUB("GITHUB"), WECHAT("WECHAT"), FACEBOOK("FACEBOOK");

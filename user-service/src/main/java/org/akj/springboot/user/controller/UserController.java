@@ -1,12 +1,10 @@
-package org.akj.springboot.controller;
+package org.akj.springboot.user.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import org.akj.springboot.domain.User;
-import org.akj.springboot.domain.UserStatus;
-import org.akj.springboot.repository.UserRepository;
+import org.akj.springboot.user.repository.UserRepository;
+import org.akj.springboot.user.domain.User;
+import org.akj.springboot.user.domain.UserStatus;
 import org.apache.logging.log4j.util.Strings;
-import org.hibernate.validator.constraints.Range;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,12 +17,11 @@ import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping("/v1")
-@CrossOrigin
-//@CrossOrigin(origins = "http://localhost:10000", maxAge = 3600)
+@RequestMapping("${spring.application.name:''}/v1")
+//@CrossOrigin(maxAge = 3L)
+//@CrossOrigin(origins = "http://localhost:10000", maxAge = 3)
 public class UserController {
     private UserRepository userRepository;
 
@@ -34,6 +31,7 @@ public class UserController {
 
     @GetMapping("/users")
     @Operation(summary = "retrieve all users")
+    @CrossOrigin(maxAge = 3L)
     public Flux<User> getAll(@RequestParam(value = "pageNo", required = false) Integer pageNo,
                              @RequestParam(value = "pageSize", required = false) Integer pageSize,
                              @RequestParam(value = "userName", required = false) String userName) {

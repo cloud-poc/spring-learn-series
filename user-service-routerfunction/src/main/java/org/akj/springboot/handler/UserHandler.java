@@ -1,9 +1,9 @@
 package org.akj.springboot.handler;
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.akj.springboot.repository.UserRepository;
 import org.akj.springboot.domain.User;
 import org.akj.springboot.domain.UserStatus;
-import org.akj.springboot.repository.UserRepository;
 import org.akj.springboot.validator.GenericValidator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

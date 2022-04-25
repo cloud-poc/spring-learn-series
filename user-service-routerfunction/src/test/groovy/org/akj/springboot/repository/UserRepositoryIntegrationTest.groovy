@@ -1,11 +1,9 @@
 package org.akj.springboot.repository
 
 import lombok.extern.slf4j.Slf4j
-import org.akj.springboot.domain.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
-import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.test.context.ActiveProfiles

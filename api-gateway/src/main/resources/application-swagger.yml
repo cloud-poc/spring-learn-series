@@ -1,0 +1,8 @@
+spring:
+  doc:
+    enabled: true
+    service-name: API Gateway
+    description: sample gateway service backed spring cloud gateway
+    version: @project.version@
+    base-path: org.akj.springboot
+

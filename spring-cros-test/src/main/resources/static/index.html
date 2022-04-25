@@ -5,21 +5,21 @@
     <title>Cross Origin Test</title>
     <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript">
+        jQuery.support.cors = true
         function doPost(method, url, requestBody) {
             $.ajax({
                 url: url,
                 type: method,
                 dataType: 'json',
-                contentType: "application/json; charset=utf-8",
                 data: requestBody,
-                success: (data,textStatus, jqXHR) => {
+                success: (data, textStatus, jqXHR) => {
                     $("#console").text("");
                     $("#console").text(JSON.stringify(data, null, 3));
                     $("#status").val(jqXHR.status).removeClass("error-status").addClass("succ-status");
                 },
-                error: (jqXHR,textStatus, err) => {
+                error: (jqXHR, textStatus, err) => {
                     $("#console").text("");
-                    $("#console").text(JSON.stringify(jqXHR.responseJSON,null,3));
+                    $("#console").text(JSON.stringify(jqXHR.responseJSON, null, 3));
                     $("#status").val(jqXHR.status).removeClass("succ-status").addClass("error-status");
                 }
             });
@@ -29,16 +29,14 @@
             $.ajax({
                 url: url,
                 type: method,
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
-                success: (data,textStatus, jqXHR) => {
+                success: (data, textStatus, jqXHR) => {
                     $("#console").text("");
                     $("#console").text(JSON.stringify(data, null, 3));
                     $("#status").val(jqXHR.status).removeClass("error-status").addClass("succ-status");
                 },
-                error: (jqXHR,textStatus, err) => {
+                error: (jqXHR, textStatus, err) => {
                     $("#console").text("");
-                    $("#console").text(JSON.stringify(jqXHR.responseJSON,null,3));
+                    $("#console").text(JSON.stringify(jqXHR.responseJSON, null, 3));
                     $("#status").val(jqXHR.status).removeClass("succ-status").addClass("error-status");
                 }
             });
@@ -50,23 +48,29 @@
             let url = $("#url").val();
             let requestBody = $("#body").val();
 
-            if(url != '' && regex.test(url)){
+            if (url != '' && regex.test(url)) {
                 $("#status").val('-').removeClass("error-status").removeClass("succ-status");
-                switch (method){
-                    case 'post': doPost(method, url, requestBody); break;
-                    case 'put': doPost(method, url, requestBody); break;
-                    default: doDefault(method, url);
+                switch (method) {
+                    case 'post':
+                        doPost(method, url, requestBody);
+                        break;
+                    case 'put':
+                        doPost(method, url, requestBody);
+                        break;
+                    default:
+                        doDefault(method, url);
                 }
-            }else{
+            } else {
                 $("#console").text("");
                 $("#console").text("invalid request url [" + url + "]");
             }
         }
     </script>
     <style>
-        body{
+        body {
             text-align: left;
         }
+
         .request-form {
             border-radius: 6px;
             width: 60%;
@@ -88,12 +92,12 @@
             border: 1px solid lightgray;
         }
 
-        .error-status{
+        .error-status {
             color: red;
             font-weight: bold;
         }
 
-        .succ-status{
+        .succ-status {
             color: green;
             font-weight: bold;
         }
@@ -112,7 +116,7 @@
         <span>
             <label for="method">Http method:</label>
             <select id="method" style="height: 25px;border: 1px solid lightgray;border-radius: 5px;margin-left: 15px">
-                <option value="get" selected >GET</option>
+                <option value="get" selected>GET</option>
                 <option value="post">POST</option>
                 <option value="delete">DELETE</option>
                 <option value="put">PUT</option>
@@ -136,7 +140,7 @@
         <span style="margin-left: 10px;"> Response => </span>
         <div style="margin-left: 10px;">
             <label for="status">Http status:</label>
-            <input type="text" id="status" readonly style="margin-left: 15px;border: none" value="-"> </div>
+            <input type="text" id="status" readonly style="margin-left: 15px;border: none" value="-"></div>
         <textarea id="console"
                   style="border-radius: 5px;border: 1px solid lightgray;margin:10px 10px;padding: 5px 5px;overflow: auto;width: 100%;display: block;"
                   readonly rows="25"></textarea>

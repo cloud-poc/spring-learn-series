@@ -3,13 +3,10 @@ package org.akj.springboot;
 import org.akj.springboot.annotation.AutoIgnore;
 import org.akj.springboot.annotation.EnableTestBean;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-
-import java.util.Set;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 //@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.CUSTOM, classes = {CustomBeanFilter.class}))

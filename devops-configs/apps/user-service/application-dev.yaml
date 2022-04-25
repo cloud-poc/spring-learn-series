@@ -11,8 +11,5 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
-
-springdoc:
-  swagger-ui:
+  doc:
     enabled: true
-    path: /swagger-ui

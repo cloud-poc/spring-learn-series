@@ -3,7 +3,6 @@ package org.akj.springboot.common.exception;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.akj.springboot.common.constant.CustomHttpStatus;
 import org.akj.springboot.common.constant.ErrorCodeConstant;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.core.Ordered;

@@ -1,8 +1,6 @@
 package org.akj.springboot.annotation;
 
-import org.akj.springboot.config.AppConfig;
 import org.akj.springboot.config.TestBeanImportBeanDefinitionRegistrar;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;

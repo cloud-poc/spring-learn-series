@@ -1,4 +1,4 @@
-package org.akj.springboot.domain;
+package org.akj.springboot.user.domain;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;

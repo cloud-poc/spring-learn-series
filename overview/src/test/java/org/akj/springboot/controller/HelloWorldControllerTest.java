@@ -5,8 +5,6 @@ import org.akj.springboot.annotation.AutoIgnore;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.annotation.AnnotationUtils;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @Slf4j
 class HelloWorldControllerTest {
 

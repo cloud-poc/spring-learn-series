@@ -28,6 +28,7 @@
         <!-- microservices -->
         <module>service-registry</module>
         <module>config-service</module>
+        <module>api-gateway</module>
         <module>shared-lib-reactive</module>
         <module>shared-lib</module>
         <module>user-service</module>

@@ -1,4 +1,4 @@
-package org.akj.springboot.domain;
+package org.akj.springboot.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
