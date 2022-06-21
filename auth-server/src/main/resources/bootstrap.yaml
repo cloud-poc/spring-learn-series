@@ -1,0 +1,27 @@
+server:
+  port: 8044
+spring:
+  application:
+    name: authorization-service
+  profiles:
+    active:
+    - local
+  cloud:
+    config:
+      discovery:
+        enabled: ${CONFIG_DISCOVERY_ENABLED:false}
+        service-id: ${CONFIG_DISCOVERY_SERVICE_ID:config-service}
+      uri:
+      - ${CONFIG_SERVICE_URL:http://localhost:8888}
+
+eureka.client.service-url:
+  defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka/}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,bus-refresh,hystrix.stream,prometheus,metrics
+  metrics:
+    export.prometheus.enabled: true
+
