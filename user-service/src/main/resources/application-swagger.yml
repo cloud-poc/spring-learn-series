@@ -4,5 +4,4 @@ spring:
     service-name: User Service
     description: sample user service backed by webflux + reactive mongo stream
     version: @project.version@
-    base-path: org.akj.springboot
 

@@ -27,4 +27,6 @@ public class UserInfo implements Serializable {
 
     private String telPhone;
 
+    private String email;
+
 }

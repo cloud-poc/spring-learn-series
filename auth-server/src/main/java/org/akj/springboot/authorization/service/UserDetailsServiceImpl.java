@@ -1,44 +1,45 @@
 package org.akj.springboot.authorization.service;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.akj.springboot.authorization.entity.Users;
-import org.akj.springboot.authorization.repository.UserDetailsRepository;
-import org.akj.springboot.common.exception.BusinessException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.akj.springboot.authorization.domain.Authority;
+import org.akj.springboot.authorization.domain.ProfileStatus;
+import org.akj.springboot.authorization.domain.User;
+import org.akj.springboot.authorization.repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @Service("userDetailService")
 public class UserDetailsServiceImpl implements UserDetailsService {
+    private final UserRepository userDetailsRepository;
 
-    @Autowired
-    private UserDetailsRepository userDetailsRepository;
+    public UserDetailsServiceImpl(UserRepository userDetailsRepository) {
+        this.userDetailsRepository = userDetailsRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String userName) {
-        Users user = userDetailsRepository.findByUsername(userName);
-        if (null == user) {
-            throw new BusinessException("ERROR-010-001","User " + userName + " does not exists");
+        User user = userDetailsRepository.findByUserName(userName);
+        org.springframework.security.core.userdetails.User userDetail = new org.springframework.security.core.userdetails.User(user.getUserName(),
+                user.getPassword(), new ArrayList<>());
+        if (user != null) {
+            var simpleGrantedAuthorities = user.getUserAuthorities()
+                    .stream()
+                    .map(Authority::getName)
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList());
+            userDetail = new org.springframework.security.core.userdetails.User(user.getUserName(),
+                    user.getPassword(),
+                    user.getStatus() == ProfileStatus.ACTIVE,
+                    true,
+                    true,
+                    user.getStatus() != ProfileStatus.LOCKED,
+                    simpleGrantedAuthorities);
         }
 
-        // List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-//        for (SysRole role : sysUser.getRoleList()) {
-//            for (SysPermission permission : role.getPermissionList()) {
-//                authorities.add(new SimpleGrantedAuthority(permission.getCode()));
-//            }
-//        }
-        return new User(user.getUsername(), user.getPassword(), getAuthority());
-    }
-
-    private List getAuthority() {
-        return Arrays.asList(
-                new SimpleGrantedAuthority("ROLE_ADMIN"),
-                new SimpleGrantedAuthority("021098"),
-                new SimpleGrantedAuthority("021040"));
+        return userDetail;
     }
 }

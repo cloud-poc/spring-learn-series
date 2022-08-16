@@ -14,6 +14,8 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+  webflux:
+    base-path: ${server.servlet.context-path}
 
 management:
   endpoints:
@@ -25,3 +27,6 @@ management:
       show-details: always
   metrics:
     export.prometheus.enabled: true
+server:
+  servlet:
+    context-path: /${spring.application.name}

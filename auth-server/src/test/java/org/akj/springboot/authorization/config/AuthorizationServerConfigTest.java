@@ -1,6 +1,6 @@
 package org.akj.springboot.authorization.config;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +19,7 @@ class AuthorizationServerConfigurationTest {
 		System.out.println(hashPass);
 
 		boolean f = bcryptPasswordEncoder.matches("123456", hashPass);
-		Assert.assertTrue(f);
+		Assertions.assertTrue(f);
 	}
 
 }

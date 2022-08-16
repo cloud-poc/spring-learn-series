@@ -33,6 +33,7 @@
         <module>shared-lib</module>
         <module>user-service</module>
         <module>user-service-routerfunction</module>
+<!--        <module>auth-server</module>-->
     </modules>
     <properties>
         <java.version>11</java.version>
@@ -64,6 +65,10 @@
         <spock-reports.version>2.1.1-groovy-3.0</spock-reports.version>
         <shared-lib-reactive.version>2.0.0</shared-lib-reactive.version>
         <rest-request-core.version>2.0.0</rest-request-core.version>
+        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+        <spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
+        <shared-lib.version>2.0.0</shared-lib.version>
+        <jupiter.version>5.8.2</jupiter.version>
     </properties>
 
     <dependencyManagement>
@@ -101,6 +106,16 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${springdoc-openapi-ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-oauth2-authorization-server</artifactId>
+                <version>${spring-security-oauth2-authorization-server.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
@@ -176,6 +191,11 @@
                 <groupId>org.akj.springboot</groupId>
                 <artifactId>shared-lib-reactive</artifactId>
                 <version>${shared-lib-reactive.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.akj.springboot</groupId>
+                <artifactId>shared-lib</artifactId>
+                <version>${shared-lib.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.testcontainers</groupId>
@@ -265,6 +285,12 @@
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${jupiter.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

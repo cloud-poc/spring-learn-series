@@ -7,6 +7,6 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class AuthorityVo {
     @NotEmpty
-    private String groupName;
+    private String name;
     private String description;
 }

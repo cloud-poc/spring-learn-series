@@ -1,25 +1,25 @@
 spring:
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    pool-name: SpringBootHikariCP
-    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/auth?charset=utf8
     username: jamie
-    password: 123456
-    initialization-mode: always
-    hikari:
-      auto-commit: false
-      connection-test-query: SELECT 1
-      maximum-pool-size: 5
-      idle-timeout: 30000
-      minimum-idle: 2
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    password: Test1234
 
-security.oauth2.jwt.key-pair:
-  store-pass: ${JWT_KEYPAIR_STOREPASS:Test1234}
-  alias: ${JWT_KEYPAIR_ALIAS:internal-certs}
-  file-path: ${JWT_KEYPAIR_PATH:keystore.p12}
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    disable-swagger-default-url: true
+  info:
+    service-name: User Service
+    description: sample user service backed by webflux + reactive mongo stream
+    version: @project.version@
+    license-name: apache-2.0
+    license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+    contact-name: Jamie Zhang
+    contact-email: akjamie.zhang@outlook.com
+    contact-url: https://akjamie.github.io
+    terms-of-service: copy right @2022
+
+server:
+  port: 8044
+

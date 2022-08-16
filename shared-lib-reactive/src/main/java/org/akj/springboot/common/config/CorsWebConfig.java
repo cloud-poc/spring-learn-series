@@ -10,7 +10,14 @@ import java.util.Arrays;
 import java.util.List;
 
 //@Configuration
-public class CorsWebConfig {
+public class
+
+
+
+
+
+
+CorsWebConfig {
 
     @Bean
     CorsWebFilter corsWebFilter() {

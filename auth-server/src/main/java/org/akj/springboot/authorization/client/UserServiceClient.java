@@ -1,4 +1,4 @@
-package org.akj.springboot.authorization;
+package org.akj.springboot.authorization.client;
 
 public class UserServiceClient {
 }

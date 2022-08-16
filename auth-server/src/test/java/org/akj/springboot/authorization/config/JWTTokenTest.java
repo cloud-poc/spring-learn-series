@@ -1,11 +1,15 @@
 package org.akj.springboot.authorization.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 
+import java.util.UUID;
+
+@Slf4j
 class JWTTokenTest {
 
 	@Test
@@ -26,6 +30,12 @@ class JWTTokenTest {
 
 		Assertions.assertEquals(jwt.toString(), jwt1.toString());
 
+	}
+
+	@Test
+	public void test1(){
+		log.info(UUID.randomUUID().toString());
+		System.out.println(UUID.randomUUID().toString());
 	}
 
 }

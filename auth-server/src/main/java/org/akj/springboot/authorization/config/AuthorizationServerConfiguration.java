@@ -30,20 +30,23 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @Configuration
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-	@Autowired
-	private DataSource dataSource;
+	private final DataSource dataSource;
+	private final AuthenticationManager authenticationManager;
+	private final TokenStore tokenStore;
+	private final JwtAccessTokenConverter jwtAccessTokenConverter;
+	private final UserDetailsService userDetailsServices;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
-	private TokenStore tokenStore;
-
-	@Autowired
-	private JwtAccessTokenConverter jwtAccessTokenConverter;
-
-	@Autowired
-	private UserDetailsService userDetailsServices;
+	public AuthorizationServerConfiguration(DataSource dataSource,
+											AuthenticationManager authenticationManager,
+											TokenStore tokenStore,
+											JwtAccessTokenConverter jwtAccessTokenConverter,
+											UserDetailsService userDetailsServices) {
+		this.dataSource = dataSource;
+		this.authenticationManager = authenticationManager;
+		this.tokenStore = tokenStore;
+		this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+		this.userDetailsServices = userDetailsServices;
+	}
 
 	@Bean("jdbcTokenStore")
 	public JdbcTokenStore tokenStore() {
@@ -86,9 +89,12 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.approvalStore(approvalStore()).authorizationCodeServices(authorizationCodeServices())
-				.authenticationManager(authenticationManager).userApprovalHandler(userApprovalHandler())
-				.tokenStore(tokenStore).userDetailsService(userDetailsServices);
+		endpoints.approvalStore(approvalStore())
+				.authorizationCodeServices(authorizationCodeServices())
+				.authenticationManager(authenticationManager)
+				.userApprovalHandler(userApprovalHandler())
+				.tokenStore(tokenStore)
+				.userDetailsService(userDetailsServices);
 
 		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
 		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter));
@@ -98,11 +104,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()").allowFormAuthenticationForClients();
-		// security.tokenKeyAccess("isAuthenticated()").checkTokenAccess("isAuthenticated()")
-		//		.allowFormAuthenticationForClients();
-
-		// security.tokenKeyAccess("isAnonymous() || hasAuthority('ROLE_TRUSTED_CLIENT')")
-		// .checkTokenAccess("hasAuthority('ROLE_TRUSTED_CLIENT')").allowFormAuthenticationForClients();
 	}
 
 	@Override

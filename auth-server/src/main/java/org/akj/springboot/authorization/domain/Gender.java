@@ -1,4 +1,4 @@
-package org.akj.springboot.authorization.entity;
+package org.akj.springboot.authorization.domain;
 
 public enum Gender {
     MALE, FEMALE, OTHER;

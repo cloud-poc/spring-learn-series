@@ -10,5 +10,5 @@ import java.util.List;
 public class GrantUserAuthorityRequest {
     @Size(min = 1)
     @NotNull
-    private List<String> groups;
+    private List<String> authorities;
 }

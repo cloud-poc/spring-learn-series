@@ -15,17 +15,17 @@ import javax.persistence.*;
 @Table(name = "user_profile")
 @Data
 @ToString(callSuper = true)
-public class Users extends BaseEntity {
+public class User extends BaseEntity {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
-    @Column(length = 32)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name="native", strategy="native")
+    private Integer id;
 
     @Column(unique = true, name = "user_id")
     private String userName;
     private String password;
     private String aliasName;
+    @Enumerated(EnumType.STRING)
     private ProfileStatus status;
     private int failedLoginAttempts;
     private Instant lockedTime;
@@ -33,14 +33,13 @@ public class Users extends BaseEntity {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    })
-    @JoinTable(name = "user_to_group",
+    },fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authorities",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id"
+            inverseJoinColumns = @JoinColumn(name = "id"
             ))
-    private Set<Group> userGroups = new HashSet<>();
+    private Set<Authority> userAuthorities = new HashSet<>();
 
-    @OneToOne
-    private UserInfo userInfo;
+    private String userRefId;
 
 }

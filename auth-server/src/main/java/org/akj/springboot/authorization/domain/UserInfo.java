@@ -1,16 +1,12 @@
-package org.akj.springboot.authorization.entity;
+package org.akj.springboot.authorization.domain;
 
 import lombok.Data;
 import lombok.ToString;
 import org.akj.springboot.common.domain.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -20,10 +16,9 @@ import javax.validation.constraints.NotNull;
 @ToString(callSuper = true)
 public class UserInfo extends BaseEntity {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(length = 32)
-    protected String id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name="native", strategy="native")
+    private Integer id;
 
     @NotEmpty
     private String firstName;
@@ -36,10 +31,13 @@ public class UserInfo extends BaseEntity {
     @Range(min = 0, max = 200)
     private int age;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @NotNull
     private String phone;
 
     private String telPhone;
+
+    private String email;
 }
