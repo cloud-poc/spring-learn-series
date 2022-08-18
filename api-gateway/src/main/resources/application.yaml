@@ -1,6 +1,9 @@
 spring:
   cloud:
     gateway:
+      httpclient:
+        connect-timeout: 30000
+        response-timeout: 30s
       enabled: true
       globalcors:
         cors-configurations:
@@ -14,17 +17,36 @@ spring:
               - OPTIONS
         add-to-simple-url-handler-mapping: true
       routes:
-        - id: user-service
+        - id: user-service-v1
           uri: lb://user-service
           predicates:
-            - Path=/gateway/user-service/**
+            - Path=/gateway/user-service/v1/**
+            - Header=X-API-VERSION,v1
           filters:
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
             - name: RequestRateLimiter
               args:
                 key-resolver: "#{@userKeyResolver}"
                 redis-rate-limiter.replenishRate: 5
                 redis-rate-limiter.burstCapacity: 10
-#                redis-rate-limiter.requestedTokens: 1
+                redis-rate-limiter.requestedTokens: 1
+        - id: user-service-v2
+          uri: lb://user-service
+          predicates:
+            - Path=/gateway/user-service/v2/**
+            - Header=X-API-VERSION,v2
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@userKeyResolver}"
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+                redis-rate-limiter.requestedTokens: 1
       default-filters:
         - StripPrefix=1
     config:
@@ -57,7 +79,6 @@ spring:
 #  webflux:
 #    base-path: ${server.servlet.context-path}
 
-
 eureka:
   client:
     webclient:
@@ -67,3 +88,7 @@ eureka:
 server:
   servlet:
     context-path: /gateway
+
+logging:
+  level:
+    root: debug

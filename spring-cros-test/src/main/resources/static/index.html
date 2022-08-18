@@ -6,10 +6,11 @@
     <script src="https://cdn.bootcss.com/jquery/2.1.0/jquery.min.js"></script>
     <script type="text/javascript">
         jQuery.support.cors = true
-        function doPost(method, url, requestBody) {
+        function doPost(method, url, requestBody, headers) {
             $.ajax({
                 url: url,
                 type: method,
+                headers: headers,
                 dataType: 'json',
                 data: requestBody,
                 success: (data, textStatus, jqXHR) => {
@@ -25,10 +26,11 @@
             });
         }
 
-        function doDefault(method, url) {
+        function doDefault(method, url, headers) {
             $.ajax({
                 url: url,
                 type: method,
+                headers: headers,
                 success: (data, textStatus, jqXHR) => {
                     $("#console").text("");
                     $("#console").text(JSON.stringify(data, null, 3));
@@ -47,24 +49,80 @@
             let method = $("#method option:selected").val();
             let url = $("#url").val();
             let requestBody = $("#body").val();
+            let headers = getHeaders();
+            headers['X-API-CorrelationId'] = uuid();
 
             if (url != '' && regex.test(url)) {
                 $("#status").val('-').removeClass("error-status").removeClass("succ-status");
                 switch (method) {
                     case 'post':
-                        doPost(method, url, requestBody);
+                        doPost(method, url, requestBody, headers);
                         break;
                     case 'put':
-                        doPost(method, url, requestBody);
+                        doPost(method, url, requestBody, headers);
                         break;
                     default:
-                        doDefault(method, url);
+                        doDefault(method, url, headers);
                 }
             } else {
                 $("#console").text("");
                 $("#console").text("invalid request url [" + url + "]");
             }
         }
+
+        function reset(){
+            $("#console").text("");
+            $("#url").val("");
+            $("#status").val('-')
+            $("#body").val("");
+            $("#method").val('');
+            $("#method").val('');
+        }
+
+        function addHeader(){
+            let template = "<div style=\"margin: 10px 10px;\">\n" +
+                "                    <label for=\"header-key\">Key:</label>\n" +
+                "                    <input type=\"text\" id='header-key' class=\"header-element\"\n" +
+                "                           placeholder=\"http header key\"/>\n" +
+                "                    <label for=\"header-value\" style=\"margin-left:15px;\">Value:</label>\n" +
+                "                    <input type=\"text\" id='header-value'  class=\"header-element\"\n" +
+                "                           placeholder=\"http header key\"/>\n" +
+                "                </div>";
+
+            $("#headers").append(template);
+        }
+
+        function removeHeader(){
+            $("#headers").children().last().remove();
+        }
+
+        function getHeaders(){
+            let headerMap = {};
+            let headers = $("#headers").children();
+
+            for(let i=0; i< headers.length; i++){
+                let children = $(headers[i]).children();
+                let key = $(children[1]).val();
+                let value = $(children[3]).val();
+                headerMap[key] = value;
+            }
+
+            return headerMap;
+        }
+
+        function uuid(){
+            function _p8(s){
+                var p= (Math.random().toString(16) + '000000000').substr(2, 8);
+                return s ? "-" + p.substr(0,4) + '-' + p.substr(4,4) : p;
+            }
+
+            return _p8() + _p8(true) + _p8(true) + _p8();
+        }
+
+
+
+
+
     </script>
     <style>
         body {
@@ -101,16 +159,25 @@
             color: green;
             font-weight: bold;
         }
+
+        .header-element {
+            border: 1px solid blue;
+            width: 150px;
+            margin-left: 5px !important;
+            border-radius: 5px;
+            height: 22px;
+        }
     </style>
 </head>
 <body>
 <div id="container" style="width:960px;border: 1px dashed lightgray; margin: 0 auto">
-    <div style="text-align: center;margin: 20px 0px;font-size:1.5em">Cros Domain Request Test Tool</div>
+    <div style="text-align: center;margin: 20px 0px;font-size:1.5em">Cros Origin Request Test Tool</div>
+    <label style="margin-left: 10px;font-weight: bold">Request</label>
     <div class="request-form">
         <span>
             <label for="url">Url:</label>
             <input id="url" type="text" placeholder="Url."
-                   style="height: 25px;width: 400px;border: 1px solid lightgray;border-radius: 5px;margin-left: 15px; "/>
+                   style="height: 25px;width: 500px;border: 1px solid lightgray;border-radius: 5px;margin-left: 15px; "/>
         </span>
 
         <span>
@@ -125,24 +192,46 @@
             </select>
         </span>
 
+        <span style="height: auto;">
+            <label>Http header:</label>
+            <input type="button" id="btn-add-header" value="Add" onclick="addHeader()"
+                   style="background-color: green;min-width:40px;height: 23px;margin-left: 30px;color: white;border-radius: 5px;margin-top: 5px;border: none;">
+            <input type="button" id="btn-remove-header" value="Remove" onclick="removeHeader()"
+                   style="background-color: green;width: 60px;height: 23px;margin-left: 10px;color: white;border-radius: 5px;margin-top: 5px;border: none;">
+            <div id="headers" style="font-size: 0.8em">
+<!--                <div style="margin: 10px 10px;">-->
+                <!--                    <label for="header-key">Key: </label>-->
+                <!--                    <input type="text" id='header-key' class="header-element"-->
+                <!--                           placeholder="http header key"/>-->
+                <!--                    <label for="header-value">Value: </label>-->
+                <!--                    <input type="text" id='header-value'  class="header-element"-->
+                <!--                           placeholder="http header key"/>-->
+                <!--                </div>-->
+            </div>
+        </span>
+
         <span style="height: auto">
             <label for="body" style="display: block">Request body:</label>
             <textarea id="body" rows="8"
-                      style=" border-radius:5px; width: 100%;overflow: auto; margin-left: 3px; border: 1px solid lightgray;"></textarea>
+                      style=" border-radius:5px; width: 700px;overflow-y: auto; margin-left: 3px; margin-top: 5px; border: 1px solid lightgray;"></textarea>
         </span>
 
         <span>
-            <input type="button" value="Cross Domain request" onclick="crosRequest()"
-                   style="display: block;padding: 5px 20px;background-color: red;border: none;border-radius: 6px;height: 35px;color: white;font-weight: bold;"/>
+            <input type="button" value="Cors request" onclick="crosRequest()"
+                   style="display: inline-block;padding: 5px 20px;min-width:120px;background-color: red;border: none;border-radius: 6px;height: 35px;color: white;font-weight: bold;"/>
+            <input type="button" value="Reset" onclick="reset()"
+                   style="display: inline-block;padding: 5px 20px;min-width:120px;background-color: red;border: none;border-radius: 6px;height: 35px;color: white;font-weight: bold;"/>
         </span>
     </div>
     <div style="margin-top: 35px; width:60%">
-        <span style="margin-left: 10px;"> Response => </span>
+        <span style="margin-left: 10px; font-weight: bold"> Response </span>
         <div style="margin-left: 10px;">
-            <label for="status">Http status:</label>
-            <input type="text" id="status" readonly style="margin-left: 15px;border: none" value="-"></div>
+            <label for="status">Status:</label>
+            <input type="text" id="status" readonly style="margin-left: 15px;border: none" value="-">
+        </div>
+        <label style="margin-left: 10px;" for="console">Response body:</label>
         <textarea id="console"
-                  style="border-radius: 5px;border: 1px solid lightgray;margin:10px 10px;padding: 5px 5px;overflow: auto;width: 100%;display: block;"
+                  style="border-radius: 5px;border: 1px solid lightgray;margin:5px 10px;padding: 5px 5px;overflow-y: auto;width: 700px;display: block;"
                   readonly rows="25"></textarea>
     </div>
 

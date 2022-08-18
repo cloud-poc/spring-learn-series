@@ -10,3 +10,4 @@ management:
       enabled: true
   metrics:
     export.prometheus.enabled: true
+  health.circuitbreakers.enabled: true
