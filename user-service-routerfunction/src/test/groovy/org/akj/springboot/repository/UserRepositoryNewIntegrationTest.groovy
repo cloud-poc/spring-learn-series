@@ -7,8 +7,11 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.MongoDBContainer
@@ -20,22 +23,13 @@ import spock.lang.Unroll
 
 import java.time.Duration
 
-@Testcontainers
-@DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
-class UserRepositoryIntegrationTest extends Specification {
-    @Container
-    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:5.0.5")
-    static Logger log = LoggerFactory.getLogger(UserRepositoryIntegrationTest.class);
+@SpringBootTest
+@ActiveProfiles("integration-test")
+class UserRepositoryNewIntegrationTest extends Specification {
+    static Logger log = LoggerFactory.getLogger(UserRepositoryNewIntegrationTest.class);
 
     @Autowired
     UserRepository userRepository
-
-    @DynamicPropertySource
-    static def setProperties(DynamicPropertyRegistry registry) {
-        mongoDBContainer.start()
-        log.debug("Test container - mongo db uri: {}", mongoDBContainer.getReplicaSetUrl());
-        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl)
-    }
 
     @Unroll
     def "validate create user: #userName"() {

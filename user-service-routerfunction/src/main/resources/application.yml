@@ -11,6 +11,8 @@ spring:
       port: 27017
       database: test
       authentication-database: admin
+
+
   jackson:
     serialization:
       INDENT_OUTPUT: true

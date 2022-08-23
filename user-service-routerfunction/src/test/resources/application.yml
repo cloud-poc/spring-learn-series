@@ -6,3 +6,7 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+
+logging:
+  level:
+    root: debug

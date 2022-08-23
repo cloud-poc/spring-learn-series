@@ -69,6 +69,9 @@
         <spring-security-oauth2-authorization-server.version>0.2.3</spring-security-oauth2-authorization-server.version>
         <shared-lib.version>2.0.0</shared-lib.version>
         <jupiter.version>5.8.2</jupiter.version>
+        <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
+        <dynamic-datasource-spring-boot-starter.version>3.5.1</dynamic-datasource-spring-boot-starter.version>
+        <mybatis-plus-boot-starter.version>3.5.2</mybatis-plus-boot-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -164,6 +167,21 @@
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-httpclient</artifactId>
                 <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.openfeign</groupId>

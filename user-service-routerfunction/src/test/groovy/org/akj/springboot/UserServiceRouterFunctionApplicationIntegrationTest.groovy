@@ -3,15 +3,13 @@ package org.akj.springboot
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.TestPropertySource
 import org.springframework.test.web.reactive.server.WebTestClient
 import spock.lang.Specification
 
 @SpringBootTest
-@ActiveProfiles("integration-test")
 @AutoConfigureWebTestClient
+@ActiveProfiles("integration-test")
 class UserServiceRouterFunctionApplicationIntegrationTest extends Specification {
     @Autowired
     WebTestClient webTestClient
