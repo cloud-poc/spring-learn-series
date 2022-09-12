@@ -5,7 +5,6 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     pool-name: SpringBootHikariCP
     driver-class-name: com.mysql.cj.jdbc.Driver
-    initialization-mode: always
     hikari:
       auto-commit: false
       connection-test-query: SELECT 1
@@ -19,17 +18,14 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
   liquibase:
     change-log: classpath:/db/changelog-master.xml
+  sql:
+    init:
+      mode: always
 
-security.oauth2:
+security.auth:
   jwt:
     key-pair:
       store-pass: ${JWT_KEYPAIR_STOREPASS:Test1234}
       alias: ${JWT_KEYPAIR_ALIAS:internal-certs}
       file-path: ${JWT_KEYPAIR_PATH:keystore.p12}
-  resource:
 
-    token-info-uri: ${SECURITY_OAUTH2_TOKEN_URL:http://localhost:8044/oauth/check_token}
-    verifier-key.file-path: ${SECURITY_OAUTH2_VERIFIER_KEY_PATH:publicKey.pem}
-  client:
-    client-id: ${SECURITY_OAUTH2_CLIENT_ID:client_2}
-    client-secret: ${SECURITY_OAUTH2_CLIENT_SECRET:123456}

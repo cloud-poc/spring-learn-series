@@ -1,22 +1,23 @@
-package org.akj.springboot.authorization.domain;
+package org.akj.springboot.authorization.domain.entity;
 
 import lombok.Data;
-import org.akj.springboot.common.domain.BaseEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_authority")
 @Data
-public class Authority extends BaseEntity {
+public class UserGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name="native", strategy="native")
-    private Integer id;
+    private Long id;
 
-    private String name;
+    @Column(nullable = false)
+    private String userId;
 
-    private String description;
+    @Column(nullable = false)
+    private String groupId;
 
+    private String remark;
 }
