@@ -46,7 +46,7 @@
         <spock-bom.version>2.1-groovy-3.0</spock-bom.version>
         <groovy.version>3.0.9</groovy.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <guava.version>31.0.1-jre</guava.version>
+        <guava.version>32.0.0-jre</guava.version>
         <maven-jxr-plugin.version>3.1.1</maven-jxr-plugin.version>
         <gmavenplus-plugin.version>1.13.1</gmavenplus-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
